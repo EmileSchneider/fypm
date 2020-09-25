@@ -21,8 +21,13 @@ func main() {
 	err = client.Ping(context.TODO(), nil)
 
 	userRepo := user.NewMongoRepo(client.Database("kvbroker").Collection("user"))
-	u := user.User{}
-	userRepo.Create(&u)
-	fmt.Print(userRepo.Get(u.ID))
+userManager := user.NewManager(userRepo)
+
+	user := user.User{Email:"mail@mail.com", Password:"rabkcauhallah"}
+	userManager.Create(&user)
+	user2, _ := userManager.GetByEmail("mail@mail.com")
+	fmt.Println(user2.Email)
+	
 }
+
 

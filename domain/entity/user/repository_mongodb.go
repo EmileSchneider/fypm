@@ -27,8 +27,7 @@ func (r *MongoRepo) Create(u *User) (entity.ID, error) {
 }
 
 func (r *MongoRepo) Get(id entity.ID) (*User, error){
-	filter  := bson.D{
-	}
+	filter  := bson.D{{"ID",id}}
 	var user User
 	err := r.collection.FindOne(context.TODO(), filter).Decode(&user)
 	if err != nil {
@@ -37,3 +36,9 @@ func (r *MongoRepo) Get(id entity.ID) (*User, error){
 	return &user, err
 }
 
+func (r *MongoRepo) GetByMail(email string) (*User, error){
+	var user User
+	filter := bson.D{{"email", email}}
+	err := r.collection.FindOne(context.TODO(), filter).Decode(&user)
+	return &user, err
+}

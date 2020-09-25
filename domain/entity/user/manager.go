@@ -22,7 +22,12 @@ func (m *manager) Create(u *User) (entity.ID, error) {
 func (m *manager) Get(id entity.ID) (*User, error) {
 	return m.repo.Get(id)
 }
+
+func (m *manager) GetByEmail(email string) (*User, error){
+	return m.repo.GetByMail(email)
+}
 /*
+
 func (m *manager) Update(u *User) error {
 	return m.repo.Update(u)
 }

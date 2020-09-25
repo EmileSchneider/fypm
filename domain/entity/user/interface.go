@@ -23,6 +23,7 @@ type repository interface {
 type repository interface {
 	Get(id entity.ID) (*User, error)
 	Create(u *User) (entity.ID, error)
+	GetByMail(mail string) (*User, error)
 }
 
 type Manager interface {
