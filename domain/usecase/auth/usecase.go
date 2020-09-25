@@ -17,5 +17,5 @@ func NewUseCase(u user.Manager) *usecase {
 }
 
 func (ucs *usecase) Authenticate(name, password string) error {
-	ucs.userManager.
+	return nil
 }

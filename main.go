@@ -1,13 +1,14 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"fypm.com/domain/entity/user"
+	"fypm.com/domain/entity/broker"
+	"fypm.com/domain/usecase/testdbsetup"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
-	"context"
-	"fmt"
-
 )
 
 func main() {
@@ -21,13 +22,11 @@ func main() {
 	err = client.Ping(context.TODO(), nil)
 
 	userRepo := user.NewMongoRepo(client.Database("kvbroker").Collection("user"))
-userManager := user.NewManager(userRepo)
+	userManager := user.NewManager(userRepo)
+	brokerRepo := broker.NewMongoRepo(client.Database("kvbroker").Collection("broker"))
+	brokerManager := broker.NewManager(brokerRepo)
 
-	user := user.User{Email:"mail@mail.com", Password:"rabkcauhallah"}
-	userManager.Create(&user)
-	user2, _ := userManager.GetByEmail("mail@mail.com")
-	fmt.Println(user2.Email)
-	
+	usecase := testdbsetup.NewUseCase(userManager, brokerManager)
+	usecase.Setup()
+	fmt.Println("running")
 }
-
-

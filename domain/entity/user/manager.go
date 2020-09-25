@@ -23,27 +23,21 @@ func (m *manager) Get(id entity.ID) (*User, error) {
 	return m.repo.Get(id)
 }
 
-func (m *manager) GetByEmail(email string) (*User, error){
-	return m.repo.GetByMail(email)
-}
-/*
+
 
 func (m *manager) Update(u *User) error {
 	return m.repo.Update(u)
 }
 
 func (m *manager) Delete(id entity.ID) error {
-	u1, err := m.repo.Get(id)
+	_ , err := m.repo.Get(id)
 	if err != nil {
 		return err
 	}
 	return m.repo.Delete(id)
 }
-func (s *manager) Search(query string) ([]*User, error) {
-	return s.repo.Search(strings.ToLower(query))
-}
 
 func (s *manager) List() ([]*User, error) {
 	return s.repo.List()
 }
-*/
+
