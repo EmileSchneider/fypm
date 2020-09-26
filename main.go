@@ -28,5 +28,6 @@ func main() {
 
 	usecase := testdbsetup.NewUseCase(userManager, brokerManager)
 	usecase.Setup()
+	usecase.Test()
 	fmt.Println("running")
 }

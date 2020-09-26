@@ -1,6 +1,7 @@
 package testdbsetup
 
 import (
+	"fmt"
 	"fypm.com/domain/entity"
 	"fypm.com/domain/entity/user"
 	"fypm.com/domain/entity/broker"
@@ -22,7 +23,7 @@ func (u *setupusecase) Setup() {
 	for i := 1; i < 10; i++ {
 		user := user.User{
 			ID: entity.NewID(),
-			Email: "mail" + string(i) + "@mail.com",
+			Email: "mail" + "22" + "@mail.com",
 			Password: "unqiue" + string(i*i) + "password",
 		}
 		broker := broker.Broker{
@@ -33,6 +34,22 @@ func (u *setupusecase) Setup() {
 		}
 		u.userManager.Create(&user)
 		u.brokerManager.Create(&broker)
+	}
+}
+
+func (u *setupusecase) Test(){
+	brokerList, err := u.brokerManager.List()
+	if err != nil {
+		fmt.Println(err)
+	}
+	for _ , ur  := range brokerList {
+		uu := ur
+		uu.FirstName = "HANSIGERWURSTER"
+		err = u.brokerManager.Update(uu)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Broker FirstName before: %s, after: %s \n", ur.FirstName, uu.FirstName)
 	}
 }
 

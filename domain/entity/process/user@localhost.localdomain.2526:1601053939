@@ -1,0 +1,39 @@
+package process
+
+import "fypm.com/domain/entity"
+
+
+type manager struct {
+	repo repository
+}
+
+func NewManager(repo repository) *manager {
+	return &manager{
+		repo:repo,
+	}
+}
+func (m *manager) Create(p *Process) (entity.ID, error) {
+	p.ID = entity.NewID()
+	return m.repo.Create(p)
+}
+
+func (m *manager) Get(id entity.ID) (*Process, error) {
+	return m.repo.Get(id)
+}
+
+func (m *manager) Update(p *Process) error {
+	return m.repo.Update(p)
+}
+
+func (m *manager) Delete(id entity.ID) error {
+	_ , err := m.repo.Get(id)
+	if err != nil {
+		return err
+	}
+	return m.repo.Delete(id)
+}
+
+func (s *manager) List() ([]*Process, error) {
+	return s.repo.List()
+}
+

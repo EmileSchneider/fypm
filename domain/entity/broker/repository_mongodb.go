@@ -29,10 +29,13 @@ func (r *MongoRepo) Create(b *Broker) (entity.ID, error) {
 
 func (r *MongoRepo) Update(b *Broker) error {
 	filter := bson.D{{"id", b.ID}}
+	list := bson.A{}
+	list = append(list, b.Processes)
 	update := bson.D{
-		{"firstname", b.FirstName},
-		{"lastname", b.LastName},
-		{"processes", bson.A{}},
+		{"$set", bson.D{
+			{"firstname", b.FirstName},
+			{"lastname", b.LastName},
+			{"processes", list}}},
 	}
 	_, err := r.collection.UpdateOne(context.TODO(), filter, update)
 	return err
@@ -63,5 +66,4 @@ func (r *MongoRepo) List() ([]*Broker, error) {
 	}
 	cur.Close(context.TODO())
 	return brokerList, err
-
 }

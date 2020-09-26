@@ -24,8 +24,6 @@ func (m *manager) Get(id entity.ID) (*Broker, error) {
 	return m.repo.Get(id)
 }
 
-
-
 func (m *manager) Update(b *Broker) error {
 	return m.repo.Update(b)
 }
