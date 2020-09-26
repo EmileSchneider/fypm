@@ -5,6 +5,6 @@ import(
 )
 
 type UseCase interface {
-	Authenticate(name, password string) error
+	Authenticate(email, password string) error
 	Logout(u *User) error
 }

@@ -2,6 +2,7 @@ package user
 
 import (
 	"fypm.com/domain/entity"
+	"errors"
 )
 
 type manager struct {
@@ -23,6 +24,18 @@ func (m *manager) Get(id entity.ID) (*User, error) {
 	return m.repo.Get(id)
 }
 
+func (m *manager) GetByEmail(email string) (*User, error){
+	users, err := m.repo.List()
+	if err != nil {
+		return nil, err
+	}
+	for _ , user := range users {
+		if user.Email == email {
+			return user, nil
+		}
+	}
+	return nil, errors.New("User nto found")
+}
 
 
 func (m *manager) Update(u *User) error {
